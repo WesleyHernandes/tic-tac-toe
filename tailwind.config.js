@@ -6,10 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'primary': '#1E1E24',
-        'secundary': '#587B7F',
+        'primary': '#0A2239',
+        'secundary': '#1D84B5',
         'highlight1': '#F1D302',
-        'highlight2': '#00B295'
+        'highlight2': '#00B295',
+        'iconO': '#53A2BE',
+        'iconX': '#F18701'
       },
       maxWidth:{ 
         'app-content': '400px'

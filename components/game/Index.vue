@@ -18,7 +18,7 @@ import BoardComponent from '@/components/BoardComponent'
 import ScoreBoard from '@/components/ScoreBoard'
 
 export default {
-  name: 'GameComponent',
+  name: 'GameContent',
   components:[
     HeaderBoard,
     BoardComponent,

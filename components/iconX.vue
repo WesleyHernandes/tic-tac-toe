@@ -11,7 +11,7 @@ export default {
     props: {
         fill:{
             type: String,
-            default: '#F1D302'
+            default: '#F18701'
         }
     }
 }
