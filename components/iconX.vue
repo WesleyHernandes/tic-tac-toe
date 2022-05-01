@@ -1,12 +1,19 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="11" y="25" width="20" height="120" rx="10" transform="rotate(-45 11 25)" :fill="fill"/>
+        <rect x="96" y="11" width="20" height="120" rx="10" transform="rotate(45 96 11)" :fill="fill"/>
     </svg>
 </template>
 
 <script>
 export default {
-    name: 'IconX'
+    name: 'IconX',
+    props: {
+        fill:{
+            type: String,
+            default: '#F1D302'
+        }
+    }
 }
 </script>
 

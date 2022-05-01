@@ -1,18 +1,18 @@
 <template>
     <div class="board">
-        <Square v-for="square in squares" :key="square.key" :data="square" />
+        <SquareBoard v-for="square in squares" :key="square.key" :data="square" @click.native="$emit('setSquare',square)" />
     </div>
 </template>
 
 <script>
-import Square from '@/components/square'
+import SquareBoard from '@/components/SquareBoard'
 
 export default {
     name: 'BoardComponent',
-    components:[Square],
+    components:[SquareBoard],
     props:{
         playerTurn:{
-            type: Boolean,
+            type: String,
             default: null
         },
         squares:{

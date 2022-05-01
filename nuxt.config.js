@@ -32,7 +32,17 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/google-fonts'
   ],
+
+  googleFonts: {
+    display: 'swap',
+    preload: true,
+    families: {
+      'Poppins': [300, 400, 500, 600, 700, 900],
+      'Quicksand': [300, 400, 500, 600, 700, 900],
+    }
+  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],

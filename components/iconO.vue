@@ -1,12 +1,18 @@
 <template>
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M108 59.5C108 85.7335 86.7335 107 60.5 107C34.2665 107 13 85.7335 13 59.5C13 33.2665 34.2665 12 60.5 12C86.7335 12 108 33.2665 108 59.5ZM30.6178 59.5C30.6178 76.0035 43.9965 89.3822 60.5 89.3822C77.0035 89.3822 90.3822 76.0035 90.3822 59.5C90.3822 42.9965 77.0035 29.6178 60.5 29.6178C43.9965 29.6178 30.6178 42.9965 30.6178 59.5Z" :fill="fill"/>
     </svg>
 </template>
 
 <script>
 export default {
-    name: 'IconO'
+    name: 'IconO',
+    props: {
+        fill:{
+            type: String,
+            default: '#94BFBE'
+        }
+    }
 }
 </script>
 
