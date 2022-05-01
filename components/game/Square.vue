@@ -1,7 +1,7 @@
 <template>
   <div class="square">
-    <IconO v-if="data.o" class="w-4/5 h-4/5" />
-    <IconX v-else-if="data.x" class="w-4/5 h-4/5" />
+    <IconO v-if="data.o" class="w-4/6 h-4/6" fill="#0A2239" />
+    <IconX v-else-if="data.x" class="w-4/6 h-4/6" />
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import IconX from '@/components/IconX'
 
 export default {
   name: 'SquareBoard',
-  components:[ IconO, IconX ],
+  components:{ IconO, IconX },
   props:{
     data:{
       type: Object,
@@ -25,8 +25,6 @@ export default {
 
 <style lang="postcss" scoped>
   .square{
-    background-color: #5B85AA;
-    
     @apply
     cursor-pointer
     flex
@@ -36,6 +34,7 @@ export default {
     text-base
     rounded-xl
     items-center
-    justify-center;
+    justify-center
+    bg-secundary;
   }
 </style>

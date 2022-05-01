@@ -14,7 +14,8 @@ module.exports = {
         'iconX': '#F18701'
       },
       maxWidth:{ 
-        'app-content': '400px'
+        'app-menu': '350px',
+        'app-board': '300px'
       },
       screens: {
       },

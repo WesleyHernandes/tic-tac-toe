@@ -1,13 +1,13 @@
 <template>
     <div class="menu">
-        <Logo />
+        <Logo :centralized="true" />
         <Choose @playerChoose="playerChoose" />
         <Actions @startGame="startGame" />
     </div>
 </template>
 
 <script>
-import Logo from '@/components/menu/Logo'
+import Logo from '@/components/Logo'
 import Choose from '@/components/menu/Choose'
 import Actions from '@/components/menu/Actions'
 
@@ -32,6 +32,6 @@ export default {
         flex-col
         gap-4
         w-full
-        max-w-app-content;
+        max-w-app-menu;
     }
 </style>

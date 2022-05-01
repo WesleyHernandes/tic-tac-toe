@@ -1,29 +1,19 @@
 <template>
   <div class="box">
-    <HeaderBoard :player-turn="playerTurn" :player-winner="playerWinner" />
-    <BoardComponent :player-turn="playerTurn" :squares="squares" @setSquare="setSquare" />
+    <Header :player-turn="playerTurn" />
+    <Board :player-turn="playerTurn" :squares="squares" @setSquare="setSquare" />
     <ScoreBoard />
   </div>
 </template>
 
 <script>
-/* 
-TODO Incluir Animações
-TODO Cores personalizadas no tailwind
-TODO Implementar empate
-*/
-
-import HeaderBoard from '@/components/HeaderBoard'
-import BoardComponent from '@/components/BoardComponent'
-import ScoreBoard from '@/components/ScoreBoard'
+import Header from '@/components/game/Header'
+import Board from '@/components/game/Board'
+import ScoreBoard from '@/components/game/ScoreBoard'
 
 export default {
   name: 'GameContent',
-  components:[
-    HeaderBoard,
-    BoardComponent,
-    ScoreBoard
-  ],
+  components:{ Header, Board, ScoreBoard },
   props:{
     gameStarted:{
       type: Boolean,
@@ -101,6 +91,10 @@ export default {
 <style lang="postcss" scoped>
   .box{
     @apply
-    max-w-sm
+    flex
+    flex-col
+    gap-4
+    w-full
+    max-w-app-board;
   }
 </style>
