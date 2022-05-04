@@ -4,10 +4,10 @@
             <Logo icons-class="w-8 h-8" />
         </div>
 
-        <p v-if="playerTurn" class="title">VEZ DE <strong>{{playerTurn}}</strong></p>
+        <p v-if="playerTurn" class="title">VEZ DO <strong>{{playerTurn}}</strong></p>
         
         <div class="button-content">
-            <button class="reset">
+            <button class="reset" @click="$emit('toggleModalReset')">
                 <IconReset svg-class="w-6 h-6 text-primary" />
             </button>
         </div>

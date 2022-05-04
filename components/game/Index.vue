@@ -1,8 +1,12 @@
 <template>
-  <div class="box">
-    <Header :player-turn="playerTurn" />
-    <Board :player-turn="playerTurn" :squares="squares" @setSquare="setSquare" />
-    <ScoreBoard />
+  <div>
+    <div class="box">
+      <Header :player-turn="playerTurn" @toggleModalReset="toggleReset = !toggleReset" />
+      <Board :player-turn="playerTurn" :squares="squares" @setSquare="setSquare" />
+      <ScoreBoard />
+    </div>
+
+    <ModalRestart :active="toggleReset"  @toggleModalReset="toggleReset = !toggleReset" />
   </div>
 </template>
 
@@ -10,10 +14,11 @@
 import Header from '@/components/game/Header'
 import Board from '@/components/game/Board'
 import ScoreBoard from '@/components/game/ScoreBoard'
+import ModalRestart from '@/components/restart/Index'
 
 export default {
   name: 'GameContent',
-  components:{ Header, Board, ScoreBoard },
+  components:{ Header, Board, ScoreBoard, ModalRestart },
   props:{
     gameStarted:{
       type: Boolean,
@@ -22,6 +27,7 @@ export default {
   },
   data(){
     return{
+      toggleReset: false,
       playerWinner: null,
       playerTurn: 'x',
       squares:[
