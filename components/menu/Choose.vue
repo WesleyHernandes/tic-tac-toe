@@ -16,15 +16,15 @@
 </template>
 
 <script>
-import IconX from '@/components/IconX'
-import IconO from '@/components/IconO'
+import IconX from '@/components/icons/IconX'
+import IconO from '@/components/icons/IconO'
 
 export default {
     name: 'ChoosePlayer',
     components:{ IconX, IconO },
     data(){
         return {
-            playerChoose: "x"
+            playerChoose: 'x'
         }
     },
     methods:{

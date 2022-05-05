@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import IconO from '@/components/IconO'
-import IconX from '@/components/IconX'
+import IconO from '@/components/icons/IconO'
+import IconX from '@/components/icons/IconX'
 
 export default {
   name: 'SquareBoard',

@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <Menu v-if="!gameStarted" @playerChoose="playerChoose" @startGame="startGame" />
-    <Game v-else />
+    <Game v-else :player-choose="playerOne" />
   </div>
 </template>
 

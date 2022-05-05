@@ -7,6 +7,7 @@
     </div>
 
     <ModalRestart :active="toggleReset"  @toggleModalReset="toggleReset = !toggleReset" />
+    <ModalWinner v-if="playerWinner" :player-choose="playerChoose" :player-winner="playerWinner" />
   </div>
 </template>
 
@@ -14,15 +15,20 @@
 import Header from '@/components/game/Header'
 import Board from '@/components/game/Board'
 import ScoreBoard from '@/components/game/ScoreBoard'
-import ModalRestart from '@/components/restart/Index'
+import ModalRestart from '@/components/game/ModalRestart'
+import ModalWinner from '@/components/game/ModalWinner'
 
 export default {
   name: 'GameContent',
-  components:{ Header, Board, ScoreBoard, ModalRestart },
+  components:{ Header, Board, ScoreBoard, ModalRestart, ModalWinner },
   props:{
     gameStarted:{
-      type: Boolean,
-      default: null
+        type: Boolean,
+        default: null
+    },
+    playerChoose:{
+        type: String,
+        default: null
     }
   },
   data(){

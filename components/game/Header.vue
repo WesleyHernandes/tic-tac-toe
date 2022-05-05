@@ -16,7 +16,7 @@
 
 <script>
 import Logo from '@/components/Logo'
-import IconReset from '@/components/IconReset'
+import IconReset from '@/components/icons/IconReset'
 
 export default {
     name: 'HeaderBoard',
