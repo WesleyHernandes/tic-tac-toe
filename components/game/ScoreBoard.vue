@@ -1,25 +1,39 @@
 <template>
     <div class="scoreboard">
         <div class="card bg-blue-400">
-            <p class="title">X (Você)</p>
-            <p class="value">0</p>
+            <p class="title">X ({{ (playerChoose === 'x')? 'Você' : 'Op.' }})</p>
+            <p class="value">{{ gamesWonX }}</p>
         </div>
 
         <div class="card bg-gray-300">
             <p class="title">RODADAS</p>
-            <p class="value">0</p>
+            <p class="value">{{ gameTurn }}</p>
         </div>
 
         <div class="card bg-iconX">
-            <p class="title">O (Op.)</p>
-            <p class="value">0</p>
+            <p class="title">O ({{ (playerChoose === 'o')? 'Você' : 'Op.' }})</p>
+            <p class="value">{{ gamesWonO }}</p>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'ScoreBoard'
+    name: 'ScoreBoard',
+    computed:{
+        playerChoose(){
+            return this.$store.state.data.playerChoose
+        },
+        gameTurn(){
+            return this.$store.state.data.turn
+        },
+        gamesWonX(){
+            return this.$store.state.data.gamesWonX
+        },
+        gamesWonO(){
+            return this.$store.state.data.gamesWonO
+        }
+    }
 }
 </script>
 

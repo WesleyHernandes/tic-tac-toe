@@ -11,15 +11,16 @@ export default {
     name: 'BoardComponent',
     components:{ Square },
     props:{
-        playerTurn:{
-            type: String,
-            default: null
-        },
         squares:{
             type: Array,
             default(){
                 return []
             }
+        }
+    },
+    computed:{
+        playerTurn(){
+            return this.$store.state.data.playerTurn
         }
     }
 }

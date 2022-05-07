@@ -1,8 +1,8 @@
 <template>
     <div class="menu">
         <Logo :centralized="true" />
-        <Choose @playerChoose="playerChoose" />
-        <Actions @startGame="startGame" />
+        <Choose />
+        <Actions />
     </div>
 </template>
 
@@ -13,15 +13,7 @@ import Actions from '@/components/menu/Actions'
 
 export default {
     name: 'MenuContent',
-    components:{ Logo, Choose, Actions },
-    methods:{
-        playerChoose(choose){
-            this.$emit('playerChoose',choose)
-        },
-        startGame(type){
-            this.$emit('startGame',type)
-        }
-    }
+    components:{ Logo, Choose, Actions }
 }
 </script>
 

@@ -22,15 +22,14 @@ import IconO from '@/components/icons/IconO'
 export default {
     name: 'ChoosePlayer',
     components:{ IconX, IconO },
-    data(){
-        return {
-            playerChoose: 'x'
+    computed:{
+        playerChoose(){
+            return this.$store.state.data.playerChoose
         }
     },
     methods:{
         toggleChoose(choose){
-            this.playerChoose = choose
-            this.$emit('playerChoose', choose)
+            this.$store.dispatch('data/setPlayerChoose', choose)
         }
     }
 }

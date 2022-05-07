@@ -1,13 +1,19 @@
 <template>
     <div class="actions">
         <button class="action disabled bg-iconX">NOVO JOGO (VS CPU) <br> Em Breve</button>
-        <button class="action bg-blue-400" @click="$emit('startGame', 'pvp')">NOVO JOGO (VS JOGADOR)</button>
+        <button class="action bg-blue-400" @click="startGame('pvp')">NOVO JOGO (VS JOGADOR)</button>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'ActionsPlayer'
+    name: 'ActionsPlayer',
+    methods:{
+        startGame(type){
+            this.$store.dispatch('data/setGameType', type)
+            this.$store.dispatch('data/toggleGameStart', true)
+        }
+    }
 }
 </script>
 

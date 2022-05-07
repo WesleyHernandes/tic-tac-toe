@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="box">
-      <Header :player-turn="playerTurn" @toggleModalReset="toggleReset = !toggleReset" />
+      <Header @toggleModalReset="toggleModalReset" />
       <Board :player-turn="playerTurn" :squares="squares" @setSquare="setSquare" />
       <ScoreBoard />
     </div>
 
-    <ModalRestart :active="toggleReset"  @toggleModalReset="toggleReset = !toggleReset" />
-    <ModalWinner v-if="playerWinner" :player-choose="playerChoose" :player-winner="playerWinner" />
+    <ModalRestart :active="toggleReset" @toggleModalReset="toggleModalReset" />
+    <ModalWinner v-if="playerWinner" />
   </div>
 </template>
 
@@ -21,21 +21,9 @@ import ModalWinner from '@/components/game/ModalWinner'
 export default {
   name: 'GameContent',
   components:{ Header, Board, ScoreBoard, ModalRestart, ModalWinner },
-  props:{
-    gameStarted:{
-        type: Boolean,
-        default: null
-    },
-    playerChoose:{
-        type: String,
-        default: null
-    }
-  },
   data(){
     return{
       toggleReset: false,
-      playerWinner: null,
-      playerTurn: 'x',
       squares:[
         { "key":0, "x":false, "o":false },
         { "key":1, "x":false, "o":false },
@@ -46,20 +34,39 @@ export default {
         { "key":6, "x":false, "o":false },
         { "key":7, "x":false, "o":false },
         { "key":8, "x":false, "o":false }
-      ],
-      winningCombinations:[
-        [0,1,2],
-        [3,4,5],
-        [6,7,8],
-        [0,3,6],
-        [1,4,7],
-        [2,5,8],
-        [0,4,8],
-        [2,4,6]
       ]
     }
   },
+  computed:{
+    gameStarted(){
+      return this.$store.state.data.gameStarted
+    },
+    gameTurn(){
+      return this.$store.state.data.turn
+    },
+    gamesWonX(){
+      return this.$store.state.data.gamesWonX
+    },
+    gamesWonO(){
+      return this.$store.state.data.gamesWonO
+    },
+    playerTurn(){
+      return this.$store.state.data.playerTurn
+    },
+    playerChoose(){
+      return this.$store.state.data.playerChoose
+    },
+    playerWinner(){
+      return this.$store.state.data.playerWinner
+    },
+    winningCombinations(){
+      return this.$store.state.data.winningCombinations
+    }
+  },
   methods:{
+    toggleModalReset(){
+      this.toggleReset = !this.toggleReset
+    },
     setSquare(square){
       if(this.playerTurn && !this.playerWinner){
         const turn = this.playerTurn
@@ -71,10 +78,18 @@ export default {
         }
       }
     },
+    resetSquares(){
+      this.squares.map((item) => {
+        item.o = false
+        item.x = false
+        return null
+      })
+    },
     checkWinner(){
       this.winningCombinations.forEach((item) => {
         let countX = 0
         let countO = 0
+        let hasWinner = false
 
         item.forEach((item) => {
           const option = this.squares.filter(opt => opt.key === item)[0]
@@ -85,16 +100,25 @@ export default {
         })
 
         if(countX === 3){
-          this.playerWinner = 'x'
+          hasWinner = true
+          this.$store.dispatch('data/setPlayerWinner', 'x')
+          this.$store.dispatch('data/setGamesWonX', this.gamesWonX + 1)
         }
 
         if(countO === 3){
-          this.playerWinner = 'o'
+          hasWinner = true
+          this.$store.dispatch('data/setPlayerWinner', '0')
+          this.$store.dispatch('data/setGamesWonO', this.gamesWonO + 1)
+        }
+
+        if(hasWinner){
+          this.$store.dispatch('data/setTurn', this.gameTurn + 1)
+          this.resetSquares()
         }
       })
     },
     togglePlayerTurn(){
-      this.playerTurn = (this.playerTurn === 'x')? 'o' : 'x'
+      this.$store.dispatch('data/setPlayerTurn', (this.playerTurn === 'x')? 'o' : 'x')
     }
   }
 }

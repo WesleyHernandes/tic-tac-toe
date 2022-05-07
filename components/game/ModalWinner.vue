@@ -10,8 +10,8 @@
             </div>
 
             <div class="actions">
-                <button class="action bg-iconX">SAIR</button>
-                <button class="action bg-iconO">PRÓXIMA RODADA</button>
+                <button class="action bg-iconX" @click="$store.dispatch('data/endGame')">SAIR</button>
+                <button class="action bg-iconO" @click="$store.dispatch('data/setPlayerWinner', null)">PRÓXIMA RODADA</button>
             </div>
         </div>
     </div>
@@ -24,17 +24,13 @@ import IconO from '@/components/icons/IconO'
 export default {
     name: 'ModalRestart',
     components:{ IconX, IconO },
-    props:{
-        playerWinner:{
-            type: String,
-            default: null
-        },
-        playerChoose:{
-            type: String,
-            default: null
-        }
-    },
     computed:{
+        playerWinner(){
+            return this.$store.state.data.playerWinner
+        },
+        playerChoose(){
+            return this.$store.state.data.playerChoose
+        },
         titleMessage(){
             return (this.playerWinner === this.playerChoose)? "VOCÊ GANHOU" : "VOCÊ PERDEU"
         },

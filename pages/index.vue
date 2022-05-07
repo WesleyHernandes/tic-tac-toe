@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <Menu v-if="!gameStarted" @playerChoose="playerChoose" @startGame="startGame" />
+    <Menu v-if="!gameStarted" @playerChoose="playerChoose" />
     <Game v-else :player-choose="playerOne" />
   </div>
 </template>
@@ -15,9 +15,7 @@ https://coolors.co/3d348b-7678ed-f7b801-f18701-f35b04
 https://coolors.co/0a2239-53a2be-1d84b5-132e32-176087
 
 TODO Incluir Animações
-TODO Cores personalizadas no tailwind
 TODO Implementar empate
-TODO Marcar Squares do ganhador
 */
 
 import Menu from '@/components/menu/Index'
@@ -26,20 +24,20 @@ import Game from '@/components/game/Index'
 export default {
   name: 'IndexPage',
   components:{ Menu, Game },
-  data(){
-    return{
-      playerType: null,
-      playerOne: null,
-      gameStarted: false
+  computed:{
+    playerType(){
+      return this.$store.state.data.playerType
+    },
+    playerOne(){
+      return this.$store.state.data.playerOne
+    },
+    gameStarted(){
+      return this.$store.state.data.gameStarted
     }
   },
   methods:{
     playerChoose(choose){
-      this.playerOne = choose
-    },
-    startGame(type){
-      this.playerType = type
-      this.gameStarted = true
+      this.$store.dispatch('data/setPlayerChoose', choose)
     }
   }
 }

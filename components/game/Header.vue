@@ -21,10 +21,9 @@ import IconReset from '@/components/icons/IconReset'
 export default {
     name: 'HeaderBoard',
     components: {Logo, IconReset},
-    props:{
-        playerTurn:{
-            type: String,
-            default: null
+    computed:{
+        playerTurn(){
+            return this.$store.state.data.playerTurn
         }
     }
 }

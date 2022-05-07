@@ -5,7 +5,7 @@
             <h2 class="title">REINICIAR JOGO</h2>
             <div class="actions">
                 <button class="action bg-iconX" @click="$emit('toggleModalReset')">NÃO, CANCELAR</button>
-                <button class="action bg-iconO" @click="$emit('toggleModalReset')">SIM, REINICIAR</button>
+                <button class="action bg-iconO" @click="$store.dispatch('data/endGame')">SIM, REINICIAR</button>
             </div>
         </div>
     </div>
