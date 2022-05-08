@@ -38,6 +38,9 @@ export default {
     }
   },
   computed:{
+    countDraw(){
+      return this.$store.state.data.countToDraw
+    },
     gameStarted(){
       return this.$store.state.data.gameStarted
     },
@@ -71,14 +74,15 @@ export default {
       if(this.playerTurn && !this.playerWinner){
         const turn = this.playerTurn
         const choosed = this.squares.filter(item => item.key === square.key)[0]
-        if(choosed){
+        if(choosed && (choosed[turn] === false)){
           choosed[turn] = true
           this.togglePlayerTurn()
           this.checkWinner()
         }
+        this.$store.dispatch('data/setCountToDraw')
       }
     },
-    resetSquares(){
+    resetSquares(){ 
       this.squares.map((item) => {
         item.o = false
         item.x = false
@@ -90,6 +94,7 @@ export default {
         let countX = 0
         let countO = 0
         let hasWinner = false
+        let hasDraw = false
 
         item.forEach((item) => {
           const option = this.squares.filter(opt => opt.key === item)[0]
@@ -111,7 +116,11 @@ export default {
           this.$store.dispatch('data/setGamesWonO', this.gamesWonO + 1)
         }
 
-        if(hasWinner){
+        if(this.countDraw >= 9){
+          hasDraw = true
+        }
+
+        if(hasWinner || hasDraw){
           this.$store.dispatch('data/setTurn', this.gameTurn + 1)
           this.resetSquares()
         }

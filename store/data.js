@@ -1,5 +1,6 @@
 export const state = () => ({
     turn: 0,
+    countToDraw: 0,
     gamesWonX: 0,
     gamesWonO: 0,
     gameType:null,
@@ -21,6 +22,12 @@ export const state = () => ({
 })
 
 export const actions = {
+    setCountToDraw(context, payload){
+        context.commit('updateCountToDraw', payload)
+    },
+    resetCountDraw(context, payload){
+        context.commit('resetCountDraw', payload)
+    },
     setGameType(context, payload){
         context.commit('updateGameType', payload)
     },
@@ -58,10 +65,17 @@ export const actions = {
         context.commit('updatePlayerTurn', 'x')
         context.commit('updatePlayerWinner', null)
         context.commit('updateGameStart', false)
+        context.commit('resetCountDraw');
     }
 }
 
 export const mutations = {
+    updateCountToDraw(state, payload){
+        state.countToDraw = state.countToDraw + 1
+    },
+    resetCountDraw(state, payload){
+        state.countToDraw = 0
+    },
     updateGameType(state, payload){
         state.gameType = payload
     },

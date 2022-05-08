@@ -1,11 +1,11 @@
 <template>
-    <div class="modal" :class="[{'active':(playerWinner != null)}]">
+    <div class="modal" :class="[{'active':(playerWinner != null || draw)}]">
         <div class="overlay"></div>
         <div class="content">
             <h2 class="title">{{ titleMessage }}</h2>
             
-            <div class="winner">
-                <component :is="iconWinner" fill="#1D84B5" />
+            <div v-if="playerWinner" class="winner">
+                <component class="w-10 h-10 mr-4" :is="iconWinner" fill="#1D84B5" />
                 <p class="text">GANHOU A RODADA</p>
             </div>
 
@@ -25,6 +25,9 @@ export default {
     name: 'ModalRestart',
     components:{ IconX, IconO },
     computed:{
+        draw(){
+            return this.$store.state.data.draw
+        },
         playerWinner(){
             return this.$store.state.data.playerWinner
         },
@@ -46,7 +49,7 @@ export default {
         @apply
         fixed
         flex
-        items-center
+        items-end
         justify-center
         w-full
         h-full
