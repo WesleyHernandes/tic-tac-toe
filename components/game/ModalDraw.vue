@@ -1,41 +1,25 @@
 <template>
-    <div class="modal" :class="[{'active':(playerWinner != null)}]">
+    <div class="modal" :class="[{'active':draw}]">
         <div class="overlay"></div>
         <div class="content">
-            <h2 class="title">{{ titleMessage }}</h2>
-            
-            <div v-if="playerWinner" class="winner">
-                <component class="w-10 h-10 mr-4" :is="iconWinner" fill="#1D84B5" />
-                <p class="text">GANHOU A RODADA</p>
+            <div class="message">
+                <p class="text">RODADA TERMINOU EM EMPATE</p>
             </div>
 
             <div class="actions">
                 <button class="action bg-iconX" @click="$store.dispatch('data/endGame')">SAIR</button>
-                <button class="action bg-iconO" @click="$store.dispatch('data/setPlayerWinner', null)">PRÓXIMA RODADA</button>
+                <button class="action bg-iconO" @click="$store.dispatch('data/setDraw', false)">PRÓXIMA RODADA</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import IconX from '@/components/icons/IconX'
-import IconO from '@/components/icons/IconO'
-
 export default {
-    name: 'ModalRestart',
-    components:{ IconX, IconO },
+    name: 'ModalDraw',
     computed:{
-        playerWinner(){
-            return this.$store.state.data.playerWinner
-        },
-        playerChoose(){
-            return this.$store.state.data.playerChoose
-        },
-        titleMessage(){
-            return (this.playerWinner === this.playerChoose)? "VOCÊ GANHOU" : "VOCÊ PERDEU"
-        },
-        iconWinner(){
-            return (this.playerWinner === 'x')? "IconX" : "IconO"
+        draw(){ 
+            return this.$store.state.data.draw
         }
     }
 }
@@ -82,17 +66,7 @@ export default {
             py-10
             bg-primary;
 
-            & .title{
-                @apply
-                mb-5
-                text-white
-                font-game
-                font-semibold
-                text-3xl
-                tracking-wider;
-            }
-
-            & .winner{
+            & .message{
                 @apply
                 flex
                 mb-5

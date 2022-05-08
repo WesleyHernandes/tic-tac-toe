@@ -8,6 +8,7 @@
 
     <ModalRestart :active="toggleReset" @toggleModalReset="toggleModalReset" />
     <ModalWinner v-if="playerWinner" />
+    <ModalDraw />
   </div>
 </template>
 
@@ -17,10 +18,11 @@ import Board from '@/components/game/Board'
 import ScoreBoard from '@/components/game/ScoreBoard'
 import ModalRestart from '@/components/game/ModalRestart'
 import ModalWinner from '@/components/game/ModalWinner'
+import ModalDraw from '@/components/game/ModalDraw'
 
 export default {
   name: 'GameContent',
-  components:{ Header, Board, ScoreBoard, ModalRestart, ModalWinner },
+  components:{ Header, Board, ScoreBoard, ModalRestart, ModalWinner, ModalDraw },
   data(){
     return{
       toggleReset: false,
@@ -72,29 +74,43 @@ export default {
     },
     setSquare(square){
       if(this.playerTurn && !this.playerWinner){
+        this.$store.dispatch('data/setCountToDraw')
+        
         const turn = this.playerTurn
         const choosed = this.squares.filter(item => item.key === square.key)[0]
         if(choosed && (choosed[turn] === false)){
           choosed[turn] = true
           this.togglePlayerTurn()
+          this.checkDraw()
           this.checkWinner()
         }
-        this.$store.dispatch('data/setCountToDraw')
       }
     },
-    resetSquares(){ 
+    resetTurn(){ 
+      this.$store.dispatch('data/resetCountDraw')
       this.squares.map((item) => {
         item.o = false
         item.x = false
         return null
       })
     },
+    checkDraw(){
+      let hasDraw
+      if(this.countDraw >= 9){
+        hasDraw = true
+      }
+
+      if(hasDraw){
+        this.$store.dispatch('data/setDraw', true)
+        this.$store.dispatch('data/setTurn', this.gameTurn + 1)
+        this.resetTurn()
+      }
+    },
     checkWinner(){
       this.winningCombinations.forEach((item) => {
         let countX = 0
         let countO = 0
         let hasWinner = false
-        let hasDraw = false
 
         item.forEach((item) => {
           const option = this.squares.filter(opt => opt.key === item)[0]
@@ -116,13 +132,9 @@ export default {
           this.$store.dispatch('data/setGamesWonO', this.gamesWonO + 1)
         }
 
-        if(this.countDraw >= 9){
-          hasDraw = true
-        }
-
-        if(hasWinner || hasDraw){
+        if(hasWinner){
           this.$store.dispatch('data/setTurn', this.gameTurn + 1)
-          this.resetSquares()
+          this.resetTurn()
         }
       })
     },

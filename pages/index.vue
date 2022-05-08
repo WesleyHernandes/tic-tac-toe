@@ -15,7 +15,7 @@ https://coolors.co/3d348b-7678ed-f7b801-f18701-f35b04
 https://coolors.co/0a2239-53a2be-1d84b5-132e32-176087
 
 TODO Incluir Animações
-TODO Implementar empate
+TODO bloquear square quando clicado
 */
 
 import Menu from '@/components/menu/Index'

@@ -1,5 +1,6 @@
 export const state = () => ({
     turn: 0,
+    draw: false,
     countToDraw: 0,
     gamesWonX: 0,
     gamesWonO: 0,
@@ -22,6 +23,9 @@ export const state = () => ({
 })
 
 export const actions = {
+    setDraw(context,payload){
+        context.commit('updateDraw', payload)
+    },
     setCountToDraw(context, payload){
         context.commit('updateCountToDraw', payload)
     },
@@ -70,6 +74,9 @@ export const actions = {
 }
 
 export const mutations = {
+    updateDraw(state, payload){
+        state.draw = payload
+    },
     updateCountToDraw(state, payload){
         state.countToDraw = state.countToDraw + 1
     },
