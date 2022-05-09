@@ -5,7 +5,7 @@
             <h2 class="title">{{ titleMessage }}</h2>
             
             <div v-if="playerWinner" class="winner">
-                <component class="w-10 h-10 mr-4" :is="iconWinner" fill="#1D84B5" />
+                <component :is="iconWinner" class="w-10 h-10 mr-4" fill="#1D84B5" />
                 <p class="text">GANHOU A RODADA</p>
             </div>
 

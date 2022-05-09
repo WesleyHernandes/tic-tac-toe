@@ -8,7 +8,7 @@
 
     <ModalRestart :active="toggleReset" @toggleModalReset="toggleModalReset" />
     <ModalWinner v-if="playerWinner" />
-    <ModalDraw />
+    <ModalDraw v-if="draw" />
   </div>
 </template>
 
@@ -40,6 +40,9 @@ export default {
     }
   },
   computed:{
+    draw(){
+      return this.$store.state.data.draw
+    },
     countDraw(){
       return this.$store.state.data.countToDraw
     },
@@ -74,11 +77,10 @@ export default {
     },
     setSquare(square){
       if(this.playerTurn && !this.playerWinner){
-        this.$store.dispatch('data/setCountToDraw')
-        
         const turn = this.playerTurn
         const choosed = this.squares.filter(item => item.key === square.key)[0]
-        if(choosed && (choosed[turn] === false)){
+        if(choosed && (choosed.o === false && choosed.x === false)){
+          this.$store.dispatch('data/setCountToDraw')
           choosed[turn] = true
           this.togglePlayerTurn()
           this.checkDraw()
@@ -133,6 +135,7 @@ export default {
         }
 
         if(hasWinner){
+          this.$store.dispatch('data/setPlayerTurn', 'x')
           this.$store.dispatch('data/setTurn', this.gameTurn + 1)
           this.resetTurn()
         }
