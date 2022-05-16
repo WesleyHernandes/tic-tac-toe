@@ -24,7 +24,7 @@ To run - Open the project folder with the terminal and **run** the commands:
 ```bash
 yarn install
 
-yarn run dev
+yarn dev
 ```
 
 > Server will be running on localhost:3000
