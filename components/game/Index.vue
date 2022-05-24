@@ -7,8 +7,8 @@
     </div>
 
     <ModalRestart :active="toggleReset" @toggleModalReset="toggleModalReset" />
-    <ModalWinner v-if="playerWinner" />
-    <ModalDraw v-if="draw" />
+    <ModalWinner v-if="playerWinner" @nextTurn="nextTurn" />
+    <ModalDraw v-if="draw" @nextTurn="nextTurn" />
   </div>
 </template>
 
@@ -25,6 +25,7 @@ export default {
   components:{ Header, Board, ScoreBoard, ModalRestart, ModalWinner, ModalDraw },
   data(){
     return{
+      randomKeyController : 0,
       toggleReset: false,
       squares:[
         { "key":0, "x":false, "o":false },
@@ -49,6 +50,9 @@ export default {
     gameStarted(){
       return this.$store.state.data.gameStarted
     },
+    gameType(){
+      return this.$store.state.data.gameType
+    },
     gameTurn(){
       return this.$store.state.data.turn
     },
@@ -71,6 +75,9 @@ export default {
       return this.$store.state.data.winningCombinations
     }
   },
+  mounted(){
+    this.checkCpuTurn()
+  },
   methods:{
     toggleModalReset(){
       this.toggleReset = !this.toggleReset
@@ -83,22 +90,70 @@ export default {
           this.$store.dispatch('data/setCountToDraw')
           choosed[turn] = true
           this.togglePlayerTurn()
-          this.checkDraw()
           this.checkWinner()
+          this.checkDraw()
+          this.checkCpuTurn()
         }
       }
     },
-    resetTurn(){ 
-      this.$store.dispatch('data/resetCountDraw')
+    async nextTurn(){
+      await this.$store.dispatch('data/setPlayerWinner', null)
+      await this.$store.dispatch('data/setDraw', false)
+      await this.$store.dispatch('data/resetCountDraw')
+      await this.$store.dispatch('data/setPlayerTurn', 'x')
+      this.checkCpuTurn()
+    },
+    async resetTurn(){
+      await this.$store.dispatch('data/resetCountDraw')
+      await this.$store.dispatch('data/setPlayerTurn', 'x')
       this.squares.map((item) => {
         item.o = false
         item.x = false
         return null
       })
+      this.checkCpuTurn()
+    },
+    checkCpuTurn(){
+      if(!this.gameStarted && this.gameType !== "pve"){
+        return
+      }
+      if(this.playerChoose === this.playerTurn){
+        return
+      }
+      if(this.playerWinner || this.draw){
+        return
+      }
+      this.cpuPlay()
+    },
+    async cpuPlay(){
+      let randomKey = this.getRandomSquare(0, 8)
+      const emptySquares = await this.squares.filter(item => (item.x === false && item.o === false))
+
+      if(randomKey === null){
+        return
+      }
+
+      if(this.randomKeyController === 10){
+        this.randomKeyController = 0
+        randomKey = (emptySquares.length === 0) ? null : emptySquares[0].key
+      }
+
+      const square = await this.squares.filter(item => item.key === randomKey)[0]
+      if(square.x || square.o){
+        this.randomKeyController = this.randomKeyController + 1
+        this.cpuPlay()
+      }else if(square){
+        this.setSquare(square)
+      }
+    },
+    getRandomSquare(min, max) {
+        const mathMin = Math.ceil(min)
+        const mathMax = Math.floor(max)
+        return Math.floor(Math.random() * (mathMax - mathMin)) + mathMin
     },
     checkDraw(){
-      let hasDraw
-      if(this.countDraw >= 9){
+      let hasDraw = false
+      if(this.countDraw === 9 && !this.playerWinner){
         hasDraw = true
       }
 
@@ -130,7 +185,7 @@ export default {
 
         if(countO === 3){
           hasWinner = true
-          this.$store.dispatch('data/setPlayerWinner', '0')
+          this.$store.dispatch('data/setPlayerWinner', 'o')
           this.$store.dispatch('data/setGamesWonO', this.gamesWonO + 1)
         }
 

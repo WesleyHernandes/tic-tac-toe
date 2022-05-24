@@ -1,6 +1,6 @@
 <template>
     <div class="actions">
-        <button class="action disabled bg-iconX">NOVO JOGO (VS CPU) <br> Em Breve</button>
+        <button class="action bg-iconX" @click="startGame('pve')">NOVO JOGO (VS CPU)</button>
         <button class="action bg-blue-400" @click="startGame('pvp')">NOVO JOGO (VS JOGADOR)</button>
     </div>
 </template>

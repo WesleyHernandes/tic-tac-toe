@@ -11,7 +11,7 @@
 
             <div class="actions">
                 <button class="action bg-iconX" @click="$store.dispatch('data/endGame')">SAIR</button>
-                <button class="action bg-iconO" @click="$store.dispatch('data/setPlayerWinner', null)">PRÓXIMA RODADA</button>
+                <button class="action bg-iconO" @click="$emit('nextTurn')">PRÓXIMA RODADA</button>
             </div>
         </div>
     </div>
