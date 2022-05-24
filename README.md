@@ -1,6 +1,6 @@
 # 👾 Tic-Tac-Toe ( Nuxt )
 
-### 🚀 Project ( Under construction )
+### 🚀 Project
 Project created for academic purposes. Creation of the classic tic-tac-toe game, with PVP and PVE options
 
 > Reference: https://www.frontendmentor.io/challenges/tic-tac-toe-game-Re7ZF_E2v
